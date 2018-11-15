@@ -205,8 +205,10 @@ public class SourceMySqldiffFile implements CustomTaskChange {
 		}
 		
 
-		Process p = (wd != null) ? Runtime.getRuntime().exec(cmdWithArguments, null, wd) : Runtime.getRuntime().exec(
-		    cmdWithArguments);
+                ProcessBuilder pb = new ProcessBuilder(cmdWithArguments);
+                if(wd != null)
+                    pb.dirctory(wd);
+                pb.start();
 		
       		out.append("Normal cmd output:\n");
 		Reader reader = new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8);
